@@ -1,4 +1,4 @@
-//Simple Binary Tree 
+	//Simple Binary Tree 
 #include<iostream>
 using namespace std;
 class BT
@@ -16,16 +16,14 @@ class BT
 	friend void create();
 	friend void insert(BT *,BT *);
 	friend void display(BT *);
-}*temp,*root;
+}*root,*temp;
 
 
 void create()
 {
-root=nullptr;
-int no,val;
-cout<<"How Many nodes You want to create ";
-cin>>no;
-int i=0;
+root=NULL;
+int val;
+char ch;
 do{
 	cout<<"Enter Data : ";
 	cin>>val;
@@ -39,72 +37,66 @@ do{
 	{
 	insert(temp,root);
 	}
-}while(i<no);
+	cout<<"Do you want to Continue (Y/N) : ";
+	cin>>ch;
+}while(ch=='Y'||ch=='y');
 }
 
-void insert(BT *temp,BT *root)
+void insert(BT *temp,BT *root1)
 {
 	char ch;
 	cout<<"left or Right (L/R) :";
 	cin>>ch;
 	if(ch=='l'||ch=='L')
 	{
-	do{
-		if(root->left==nullptr)
+		if(root1->left==nullptr)
 		{
-			root->left=temp;
-			break;
+			root1->left=temp;
 		}
 		else
 		{
-			root=root->left;
+			insert(temp,root1->left);
 		}
-	}while(1);
 	}
 	else if (ch=='r'||ch=='R')
 	{
-	do{
-		if(root->right==nullptr)
+		if(root1->right==nullptr)
 		{
-			root->right=temp;
-			break;
+			root1->right=temp;
 		}
 		else
 		{
-			root=root->right;
+			insert(temp,root1->right);
 		}
-	}while(1);
 	}
 	else
 	{
 		cout<<"Invalid Choice ";
 	}
 }
-
-void display(BT *root)
+void display(BT *current)
 {
-	cout<<root->data;
-	display(root->left);
-	display(root->right);	
+	if(current==nullptr)
+	{return;}
+	cout<<current->data;
+	display(current->left);
+	display(current->right);	
 }
-
-
 int main()
 {
 int choice;
-BT obj;
 do{
 cout<<"1.Create\n2.Insert\n3.Display\n4.Exit\nEnter Your Choice : ";
 cin>>choice;
 switch(choice)
 {
-	case 1: obj.create();
+	case 1: create();
 	break;
 	
-	case 2: obj.insert(temp,root);
+	case 2: cout<<"Insertion will be handled in create function";
 	break;
 	
-	case 3: obj.display(root);
+	case 3: display(root);
 	break;
 	
 	case 4: exit(0);
