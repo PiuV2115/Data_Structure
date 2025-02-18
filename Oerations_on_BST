@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+class BST
+{
+	public:
+	int data;
+	BST *left;
+	BST *right;
+	BST(int x)
+	{
+		data=x;
+		left=nullptr;
+		right=nullptr;
+	}
+	friend void create(BST * , BST *);
+	friend void display(BST *);
+}*root,*temp;
+void create(BST *root, BST *temp)
+{
+root=nullptr;
+int val;
+char ch,choice;
+	do
+	{
+		cout<<"Enter data : ";
+		cin>>val;
+		temp=new BST(val);
+		if(root==nullptr)
+		{
+			root=temp;
+		}
+		else
+		{
+			while(root!=nullptr)
+			{
+			cout<<"LEFT / RIGHT : ";
+			cin>>ch;
+			if(ch=='l'||ch=='L')
+			{
+				if(root->left==nullptr)
+				{
+					root->left=temp;
+				}
+				else
+				{
+					root=root->left;	
+				}
+			}
+		     if(ch=='R'||ch=='r')
+		     {
+		     	if(root->right==nullptr)
+		     	{
+		     		root->right=temp;
+		     	}
+		     	else
+		     	{
+		     		root=root->right;
+		     	}
+		     }
+		     }		
+		}
+		cout<<"Do You want To continue , Press 1 : ";
+		cin>>choice;
+	}while(choice==1);
+}
+
+void display(BST *current)
+{
+	if(current==nullptr)
+	{return;}
+	cout<<current->data;
+	display(current->left);
+	display(current->right);
+}
+
+int main()
+{
+	int ch;
+	do{
+	cout<<"\n1.Create \n2.Display \nEnter Your Choice : ";
+	cin>>ch;
+	switch(ch)
+	{
+		case 1: create(root,temp);
+		break;
+		
+		case 2: display(root);
+		break;
+		
+		default:cout<<"Invalid Choice";
+	}
+	}while(ch!=3);
+	return 0;
+}
