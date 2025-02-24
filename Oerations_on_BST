@@ -1,74 +1,166 @@
+// Online C++ compiler to run C++ program online
 #include<iostream>
 using namespace std;
 class BST
 {
 	public:
-	int data;
+	string post,name;
+	int id,salary;
 	BST *left;
 	BST *right;
-	BST(int x)
+	BST(string x , int y, string z , int a)
 	{
-		data=x;
+		name=x;
+		id=y;
+		post=z;
+		salary=a;
 		left=nullptr;
 		right=nullptr;
 	}
-	friend void create(BST * , BST *);
+	friend void create();
 	friend void display(BST *);
 }*root,*temp;
-void create(BST *root, BST *temp)
+void create()
 {
 root=nullptr;
-int val;
-char ch,choice;
+BST *current;
+string name1,post1;
+int id1,salary1;
+int choice;
 	do
 	{
-		cout<<"Enter data : ";
-		cin>>val;
-		temp=new BST(val);
+		cout<<"# Name : ";
+		cin>>name1;
+		cout<<"# ID : ";
+		cin>>id1;
+		cout<<"# Post : ";
+		cin>>post1;
+		cout<<"# Salary : ";
+		cin>>salary1;
+		temp=new BST(name1,id1,post1,salary1);
 		if(root==nullptr)
 		{
 			root=temp;
 		}
 		else
 		{
-			while(root!=nullptr)
+		    current=root;
+			while(current!=nullptr)
 			{
-			cout<<"LEFT / RIGHT : ";
-			cin>>ch;
-			if(ch=='l'||ch=='L')
+			if(current->salary<temp->salary)
 			{
-				if(root->left==nullptr)
+				if(current->left==nullptr)
 				{
-					root->left=temp;
+					current->left=temp;
+					break;
 				}
 				else
 				{
-					root=root->left;	
+					current=current->left;	
 				}
 			}
-		     if(ch=='R'||ch=='r')
+		    else
 		     {
-		     	if(root->right==nullptr)
+		     	if(current->right==nullptr)
 		     	{
-		     		root->right=temp;
+		     		current->right=temp;
+		     		break;
 		     	}
 		     	else
 		     	{
 		     		root=root->right;
 		     	}
 		     }
-		     }		
+		   }		
 		}
 		cout<<"Do You want To continue , Press 1 : ";
 		cin>>choice;
 	}while(choice==1);
 }
 
+void updating(BST *root,int salary)
+{
+        BST *temp;
+        cout<<"Enter Updated Employee Information \n";
+        cout<<"# Name : ";
+		cin>>temp->name;
+		cout<<"# ID : ";
+		cin>>temp->id;
+		cout<<"# Post : ";
+		cin>>temp->post;
+		cout<<"# Salary : ";
+		cin>>temp->salary;
+		while(root!=nullptr)
+		{
+		    if(root->salary<salary)
+		    {
+		        if(root->left==nullptr)
+		        {
+		            root->left=temp;
+		            break;
+		        }
+		        else
+		            root=root->left;
+		    }
+		    else
+		    {
+		        if(root->right==nullptr)
+		        {
+		            root->right=temp;
+		            break;
+		        }
+		        else
+		            root=root->right;
+		    }
+		}
+}
+
+void update()
+{
+    int tempid,tempsalary;
+    cout<<"Enter Your current ID and salary: ";
+    cin>>tempid>>tempsalary;
+    if(root==nullptr)
+    {
+        cout<<"BST is not created Yet !";
+    }
+    BST *root1=root;
+    while(root1!=nullptr)
+    {
+    if(root1->salary<tempsalary)
+    {
+    if(root1->left->salary==tempsalary)
+    {
+       updating(root1,tempsalary);
+    }
+    else
+    {
+        root1=root1->left;
+    }
+    }
+    else
+    {
+    if(root1->right->salary==tempsalary)
+    {
+       updating(root1,tempsalary);
+    }
+    else
+    {
+        root1=root1->right;
+    }
+    }
+    }
+    if(root1==nullptr)
+        cout<<"Employee data not Found ! ";
+}
+
+
+
 void display(BST *current)
 {
 	if(current==nullptr)
 	{return;}
-	cout<<current->data;
+	cout<<"\n# Name : "<<current->name<<"\n# ID : "<<current->id<<"\n# Post : "<<current->post<<"\n# Salary : "<<current->salary;
 	display(current->left);
 	display(current->right);
 }
@@ -77,18 +169,21 @@ int main()
 {
 	int ch;
 	do{
-	cout<<"\n1.Create \n2.Display \nEnter Your Choice : ";
+	cout<<"\n1.Create \n2.Display \n3.Update\nEnter Your Choice : ";
 	cin>>ch;
 	switch(ch)
 	{
-		case 1: create(root,temp);
+		case 1: create();
 		break;
 		
 		case 2: display(root);
 		break;
 		
+		case 3: update();
+		break;
+		
 		default:cout<<"Invalid Choice";
 	}
-	}while(ch!=3);
+	}while(ch!=4);
 	return 0;
 }
