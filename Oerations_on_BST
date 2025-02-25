@@ -1,6 +1,7 @@
 // Online C++ compiler to run C++ program online
 #include<iostream>
 using namespace std;
+int count=0,sum=0;
 class BST
 {
 	public:
@@ -19,7 +20,11 @@ class BST
 	}
 	friend void create();
 	friend void display(BST *);
+	friend void update();
+	friend void search(BST *);
+	friend void Properties(BST *);
 }*root,*temp;
+
 void create()
 {
 root=nullptr;
@@ -38,6 +43,8 @@ int choice;
 		cout<<"# Salary : ";
 		cin>>salary1;
 		temp=new BST(name1,id1,post1,salary1);
+		count++;
+		sum+=salary1;
 		if(root==nullptr)
 		{
 			root=temp;
@@ -92,6 +99,7 @@ void updating(BST *root,int salary)
 		cin>>temp->salary;
 		while(root!=nullptr)
 		{
+		    if(root->salary==salary)
 		    if(root->salary<salary)
 		    {
 		        if(root->left==nullptr)
@@ -117,7 +125,7 @@ void updating(BST *root,int salary)
 
 void update()
 {
-    int tempid,tempsalary;
+    int tempid,tempsalary,float=0;
     cout<<"Enter Your current ID and salary: ";
     cin>>tempid>>tempsalary;
     if(root==nullptr)
@@ -127,34 +135,79 @@ void update()
     BST *root1=root;
     while(root1!=nullptr)
     {
-    if(root1->salary<tempsalary)
-    {
-    if(root1->left->salary==tempsalary)
-    {
-       updating(root1,tempsalary);
+         if(root1->salary==tempsalary)
+        {
+            updating(root1);
+            float=1;
+            break;
+        }
+        else if(root->salary<key)
+        {
+            root1=root1->left;
+        }
+        else
+        {
+            root1=root1->right;
+        }
     }
-    else
-    {
-        root1=root1->left;
-    }
-    }
-    else
-    {
-    if(root1->right->salary==tempsalary)
-    {
-       updating(root1,tempsalary);
-    }
-    else
-    {
-        root1=root1->right;
-    }
-    }
-    }
-    if(root1==nullptr)
-        cout<<"Employee data not Found ! ";
+    if(float==0)
+        cout<<"\n Employee not Found ! ";
 }
 
+void search(BST *root)
+{
+int float=0;
+int key;
+     if(root==nullptr)
+    {
+        cout<<"BST is not created Yet !";
+    }
+    cout<<"Enter Salary of Employee : ";
+    cin>>key;
+    while(root!=nullptr)
+    {
+        if(root->salary==key)
+        {
+            cout<<"Employee Details Found !\n";
+            display(root);
+            float=1;
+            break;
+        }
+        else if(root->salary<key)
+        {
+            root=root->left;
+        }
+        else
+        {
+            root=root->right;
+        }
+    }
+    if(float==0)
+        cout<<"Employee Not Found !";
+}
 
+void Properties(BST *current,BST *root)
+{
+    if(current==nullptr)
+    {
+            cout<<"BST is not created Yet !";
+    }
+    else
+    {
+    while(current->left!=nullptr)
+    {
+        current=current->left;
+    }
+    cout<<"\n# Minimum Salary of Employee is : "<<current->salary;
+    current=root;
+    while(current->right!=nullptr)
+    {
+        current=current->right;
+    }
+    cout<<"\n# Maximum Salary of Employee is : "<<current->salary;
+    current=root;
+    }
+}
 
 void display(BST *current)
 {
@@ -169,7 +222,7 @@ int main()
 {
 	int ch;
 	do{
-	cout<<"\n1.Create \n2.Display \n3.Update\nEnter Your Choice : ";
+	cout<<"\n1.Create \n2.Display \n3.Update\n4.Search\n5.Properties\nEnter Your Choice : ";
 	cin>>ch;
 	switch(ch)
 	{
@@ -181,6 +234,13 @@ int main()
 		
 		case 3: update();
 		break;
+		
+		case 4: search(root);
+		break;
+		
+		case 5: properties(root,root);
+		cout<<"\n# No. of Employess's are : "<<count;
+		cout<<"\n# Average of salary's of Employee's is : "<<sum/count;
 		
 		default:cout<<"Invalid Choice";
 	}
