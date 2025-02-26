@@ -85,40 +85,44 @@ int choice;
 	}while(choice==1);
 }
 
-void updating(BST *root,int salary)
+void updating(BST *root)
 {
         BST *temp;
-        cout<<"Enter Updated Employee Information \n";
-        cout<<"# Name : ";
-		cin>>temp->name;
-		cout<<"# ID : ";
-		cin>>temp->id;
-		cout<<"# Post : ";
-		cin>>temp->post;
-		cout<<"# Salary : ";
-		cin>>temp->salary;
 		while(root!=nullptr)
 		{
-		    if(root->salary==salary)
-		    if(root->salary<salary)
+		    if(root->salary<root->left->salary&&root->left!=nullptr)
 		    {
-		        if(root->left==nullptr)
-		        {
-		            root->left=temp;
-		            break;
-		        }
-		        else
-		            root=root->left;
+		       temp->name=root->left->name;
+		       root->left->name=root->name;
+		       root->name=temp->name;
+		       temp->id=root->left->id;
+		       root->left->id=root->id;
+		       root->id=temp->id;
+		       temp->post=root->left->post;
+		       root->left->post=root->post;
+		       root->post=temp->post;
+		       temp->salary=root->left->salary;
+		       root->left->salary=root->salary;
+		       root->salary=temp->salary;
 		    }
-		    else
+		    else if(root->salary>root->right->salary&&root->right!=nullptr)
 		    {
-		        if(root->right==nullptr)
-		        {
-		            root->right=temp;
-		            break;
-		        }
-		        else
-		            root=root->right;
+		       temp->name=root->right->name;
+		       root->right->name=root->name;
+		       root->name=temp->name;
+		       temp->id=root->right->id;
+		       root->right->id=root->id;
+		       root->id=temp->id;
+		       temp->post=root->right->post;
+		       root->right->post=root->post;
+		       root->post=temp->post;
+		       temp->salary=root->right->salary;
+		       root->right->salary=root->salary;
+		       root->salary=temp->salary;
+		    }
+		    if(root->salary>root->left->salry&&root->salary>=root->right->salary)
+		    {
+		        break;
 		    }
 		}
 }
@@ -137,6 +141,17 @@ void update()
     {
          if(root1->salary==tempsalary)
         {
+        BST *temp;
+        cout<<"Enter Updated Employee Information \n";
+        cout<<"# Name : ";
+		cin>>temp->name;
+		cout<<"# ID : ";
+		cin>>temp->id;
+		cout<<"# Post : ";
+		cin>>temp->post;
+		cout<<"# Salary : ";
+		cin>>temp->salary;
+		root1=temp;
             updating(root1);
             float=1;
             break;
