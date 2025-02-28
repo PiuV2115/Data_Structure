@@ -1,4 +1,5 @@
 // Online C++ compiler to run C++ program online
+// Online C++ compiler to run C++ program online
 #include<iostream>
 using namespace std;
 int count=0,sum=0;
@@ -54,7 +55,7 @@ int choice;
 		    current=root;
 			while(current!=nullptr)
 			{
-			if(current->salary<temp->salary)
+			if(current->salary>temp->salary)
 			{
 				if(current->left==nullptr)
 				{
@@ -90,7 +91,7 @@ void updating(BST *root)
         BST *temp;
 		while(root!=nullptr)
 		{
-		    if(root->salary<root->left->salary&&root->left!=nullptr)
+		    if(root->salary>root->left->salary&&root->left!=nullptr)
 		    {
 		       temp->name=root->left->name;
 		       root->left->name=root->name;
@@ -105,7 +106,7 @@ void updating(BST *root)
 		       root->left->salary=root->salary;
 		       root->salary=temp->salary;
 		    }
-		    else if(root->salary>root->right->salary&&root->right!=nullptr)
+		    else if(root->salary<=root->right->salary&&root->right!=nullptr)
 		    {
 		       temp->name=root->right->name;
 		       root->right->name=root->name;
@@ -120,16 +121,43 @@ void updating(BST *root)
 		       root->right->salary=root->salary;
 		       root->salary=temp->salary;
 		    }
-		    if(root->salary>root->left->salry&&root->salary>=root->right->salary)
+		    if(root->salary>root->left->salary&&root->salary>=root->right->salary)
 		    {
 		        break;
+		    }
+		    if(root->left&&root->right==NULL)
+		    {
+		        BST *temp;
+		        temp=current;
+		        while(current!=NULL)
+		        {
+		            if(current->salary>root->salary)
+		            {
+		           
+		                current=current->left;
+		               
+		             if(current==nullptr)
+		             {
+		                 current=root;
+		                 break;
+		             }
+		            }
+		            else{
+		                current=current->right;
+		                if(current==nullptr)
+		                {
+		                    current=root;
+		                    break;
+		                }
+		            }
+		        }
 		    }
 		}
 }
 
 void update()
 {
-    int tempid,tempsalary,float=0;
+    int tempid,tempsalary,flag=0;
     cout<<"Enter Your current ID and salary: ";
     cin>>tempid>>tempsalary;
     if(root==nullptr)
@@ -141,22 +169,22 @@ void update()
     {
          if(root1->salary==tempsalary)
         {
-        BST *temp;
+        
         cout<<"Enter Updated Employee Information \n";
         cout<<"# Name : ";
-		cin>>temp->name;
+		cin>>root1->name;
 		cout<<"# ID : ";
-		cin>>temp->id;
+		cin>>root1->id;
 		cout<<"# Post : ";
-		cin>>temp->post;
+		cin>>root1->post;
 		cout<<"# Salary : ";
-		cin>>temp->salary;
-		root1=temp;
+		cin>>root1->salary;
+		
             updating(root1);
-            float=1;
+            flag=1;
             break;
         }
-        else if(root->salary<key)
+        else if(root->salary>tempsalary)
         {
             root1=root1->left;
         }
@@ -165,13 +193,13 @@ void update()
             root1=root1->right;
         }
     }
-    if(float==0)
+    if(flag==0)
         cout<<"\n Employee not Found ! ";
 }
 
 void search(BST *root)
 {
-int float=0;
+int flag=0;
 int key;
      if(root==nullptr)
     {
@@ -185,7 +213,7 @@ int key;
         {
             cout<<"Employee Details Found !\n";
             display(root);
-            float=1;
+            flag=1;
             break;
         }
         else if(root->salary<key)
@@ -197,7 +225,7 @@ int key;
             root=root->right;
         }
     }
-    if(float==0)
+    if(flag==0)
         cout<<"Employee Not Found !";
 }
 
@@ -253,7 +281,7 @@ int main()
 		case 4: search(root);
 		break;
 		
-		case 5: properties(root,root);
+		case 5: Properties(root,root);
 		cout<<"\n# No. of Employess's are : "<<count;
 		cout<<"\n# Average of salary's of Employee's is : "<<sum/count;
 		
@@ -261,4 +289,3 @@ int main()
 	}
 	}while(ch!=4);
 	return 0;
-}
