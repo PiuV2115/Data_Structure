@@ -13,7 +13,7 @@ public:
 };
 class List
 {
-public;
+public:
 	Node *arr[100];
 	List(int v)
 	{
@@ -22,30 +22,45 @@ public;
 			arr[i]=nullptr;
 		}
 	}
-	void Edge()
+	void Edge(int e)
 	{
+	int m,n;
 	for(int i=0;i<e;i++)
 		{
 				cout<<"Enter Edge : ";
 				cin>>m>>n;
 				Node *temp=new Node(n);
-				temp->next=arr[n];
-				a[n]=temp;
-				Node *temp=new Node(m);
 				temp->next=arr[m];
-				a[m]=temp;
+				arr[m]=temp;
+				Node *temp1=new Node(m);
+				temp1->next=arr[n];
+				arr[n]=temp1;
    		}
+	}
+	
+	void Display(int v)
+	{
+	  for(int j=0;j<v;j++)
+	  {
+	    Node *temp=arr[j];
+	    while(temp!=nullptr)
+	    {
+	        cout<<temp->dist<<"\t";
+	        temp=temp->next;
+	    }
+	    cout<<"\n";
+	  } 
 	}
 };
 class Matrix
 {
 	public:
 	int a[10][10],i=0,j=0;
-	Graph()
+	Matrix(int v)
 	{
-		for(i=0;i<10;i++)
+		for(i=0;i<v;i++)
 		{
-			for(j=0;j<10;j++)
+			for(j=0;j<v;j++)
 			{
 				a[i][j]=0;
 			}
@@ -83,56 +98,37 @@ void display(int size)
 
 int main()
 {
-	Matrix m;
+
 	int v,e;
 	int choice;
 	cout<<"Enter No. of Vertices : ";
 	cin>>v;
 	cout<<"Enter No. of Edges : ";
 	cin>>e;
+	Matrix m(v);
+	List lt(v);
 	do{
-	cout<<"1.Adjacency Matrix \n2. Adjacency list\nEnter Your Choice : ";
+	cout<<"\n1.Adjacency Matrix Accept \n2.Adjacency Matriz Display\n3.Adjacency list Accept\n4.Adjacency List Display\nEnter Your Choice : ";
 	cin>>choice;
 	switch(choice)
 	{
-		case 1: 
-		int ch;
-		cout<<"1.Accept\n2.Display\nEnter Your Choice : ";
-		cin>>ch;
-		switch(ch)
-		{
-			case 1: m.accept(e);
+		case 1: m.accept(e);
 			cout<<"\nAccpetion of Adjacecny Matrix is Done";
 			break;
 			
-			case 2:
-			cout<<"Display of Adjacency Matrix : \n";
+		case 2:
+			cout<<"\nDisplay of Adjacency Matrix : \n";
 			m.display(v);
 			break;
 			
-			default:cout<<"Invalid choice";
-		}
-		break;
-		
-		case 2: 
-		int ch;
-		List.lt(v);
-		cout<<"1.Accept\n2.Display\nEnter Your Choice : ";
-		cin>>ch;
-		switch(ch)
-		{
-			case 1: lt.Edge(e);
+		case 3: lt.Edge(e);
 			break;
 			
-			case 2:lt.Display(v);
+		case 4:lt.Display(v);
 			break;
-			
-			default:cout<<"Invalid choice";
-		}
-		break;
 		
 		default:cout<<"Invalid Choice";
 	}
-	}while(choice!=4);
-	obj.display(v);
+	}while(choice!=6);
+
 }
