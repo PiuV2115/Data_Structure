@@ -5,36 +5,42 @@ class Node
 public:
 	int dist;
 	Node *next;
-	Node(int x)
+	Node(string x,int d)
 	{
-		dist=x;
+		city=x;
+		dist=d;
 		next=nullptr;
 	}
 };
 class List
 {
 public:
-	Node *arr[100];
+	Node *arr[100],*track[100];
 	List(int v)
 	{
 		for(int i=0;i<v;i++)
 		{
 			arr[i]=nullptr;
+			track[i]=nullptr;
 		}
 	}
 	void Edge(int e)
 	{
-	int m,n;
-	for(int i=0;i<e;i++)
+	string m,n;
+	for(int i=0;i<2e;i+2)
 		{
-				cout<<"Enter Edge : ";
+				cout<<i+1<<"] Enter (Source , Destination) : ";
 				cin>>m>>n;
-				Node *temp=new Node(n);
-				temp->next=arr[m];
-				arr[m]=temp;
+				cout<<"Distance Between ("<<m<<" , "<<n<<") :" ;
+				cin>>d;
+				Node *temp=new Node(n,d);
+				arr[i]->city=m;
+				temp->next=arr[i];
+				arr[i]=temp;
 				Node *temp1=new Node(m);
-				temp1->next=arr[n];
-				arr[n]=temp1;
+				arr[i+1]->city=n;
+				Node *temp1->next=arr[i+1];
+				arr[i+1]=temp1;
    		}
 	}
 	
@@ -45,7 +51,8 @@ public:
 	    Node *temp=arr[j];
 	    while(temp!=nullptr)
 	    {
-	        cout<<temp->dist<<"\t";
+	        if(temp->next!=nullptr)
+	            cout<<temp->city<<"----->";
 	        temp=temp->next;
 	    }
 	    cout<<"\n";
