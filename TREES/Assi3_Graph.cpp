@@ -27,7 +27,7 @@ public:
 	void Edge(int e)
 	{
 	string m,n;
-	for(int i=0;i<2e;i+2)
+	for(int i=0;i<2*e;i+2)
 		{
 				cout<<i+1<<"] Enter (Source , Destination) : ";
 				cin>>m>>n;
@@ -37,7 +37,7 @@ public:
 				arr[i]->city=m;
 				temp->next=arr[i];
 				arr[i]=temp;
-				Node *temp1=new Node(m);
+				Node *temp1=new Node(m,d);
 				arr[i+1]->city=n;
 				Node *temp1->next=arr[i+1];
 				arr[i+1]=temp1;
@@ -48,39 +48,53 @@ public:
 	{
 	  for(int j=0;j<v;j++)
 	  {
-	    Node *temp=arr[j];
+	  	cout<<"------------";
+	  	cout<<"|"<<a[j]<<"|";
+	    Node *temp=arr[j]->next;
 	    while(temp!=nullptr)
 	    {
-	        if(temp->next!=nullptr)
-	            cout<<temp->city<<"----->";
+	        cout<<"-----> [ "<<temp->city<<","<<temp->d<<" ]";
 	        temp=temp->next;
 	    }
 	    cout<<"\n";
-	  } 
+	  }
+	   cout<<"------------";
 	}
 };
 class Matrix
 {
 	public:
-	int a[10][10],i=0,j=0;
+	string a[10][10],i=0,j=0;
 	Matrix(int v)
 	{
 		for(i=0;i<v;i++)
 		{
 			for(j=0;j<v;j++)
 			{
-				a[i][j]=0;
+				cout<<i<<"] City : ";
+				cin>>tempcity;
+				a[i][j]=tempcity;
 			}
 		}
 	}
 
 void accept(int edge)
 {
-	int m,n;
+	string m,n;
 	for(int i=0;i<edge;i++)
 	{
-		cout<<i+1<<"] Edge : ";
+		cout<<i+1<<"] Path [source , Destination] : ";
 		cin>>m>>n;
+		for(int m=0;m<v;m++)
+		{
+			for(int n=0;n<v;n++)
+			{
+				if(a[i][j]==m)
+				{
+					cout<<""/.h;
+				}
+			}
+		}
 		a[m][n]=1;
 		a[n][m]=1;
 	}
@@ -108,9 +122,9 @@ int main()
 
 	int v,e;
 	int choice;
-	cout<<"Enter No. of Vertices : ";
+	cout<<"Enter No. of Cities : ";
 	cin>>v;
-	cout<<"Enter No. of Edges : ";
+	cout<<"Enter No. of Paths : ";
 	cin>>e;
 	Matrix m(v);
 	List lt(v);
@@ -136,6 +150,6 @@ int main()
 		
 		default:cout<<"Invalid Choice";
 	}
-	}while(choice!=6);
+	}while(choice!=5);
 
 }
