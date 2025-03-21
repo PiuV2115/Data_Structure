@@ -1,65 +1,18 @@
 #include<iostream>
+#include<string>
 using namespace std;
-class Node
-{
+
+class Node {
 public:
-	int dist;
-	string city;
-	Node *next;
-	Node(string x,int d)
-	{
-		city=x;
-		dist=d;
-		next=nullptr;
-	}
-};
-class List
-{
-public:
-	Node *arr[100];
-	List(int v)
-	{
-		for(int i=0;i<v;i++)
-		{
-			arr[i]=nullptr;
-		}
-	}
-	void Edge(int e)
-	{
-	string m,n;
-	int d;
-	for(int i=0;i<2*e;i+=2)
-		{
-				cout<<i+1<<"] Enter (Source , Destination) : ";
-				cin>>m>>n;
-				cout<<"Distance Between ("<<m<<" , "<<n<<") :" ;
-				cin>>d;
-				int j=i+1;
-				Node *temp=new Node(n,d);
-				temp->next=arr[i];
-				arr[i]=temp;
-				Node *temp1=new Node(m,d);
-				temp1->next=arr[j];
-				arr[j]=temp1;
-   		}
-	}
-	
-	void Display(int v)
-	{
-	  for(int j=0;j<v;j++)
-	  {
-	  	cout<<"------------";
-	  	cout<<"|"<<arr[j]<<"|";
-	    Node *temp=arr[j]->next;
-	    while(temp!=nullptr)
-	    {
-	        cout<<"-----> [ "<<temp->city<<","<<temp->dist<<" ]";
-	        temp=temp->next;
-	    }
-	    cout<<"\n";
-	  }
-	   cout<<"------------";
-	}
+    int dist;
+    string city;
+    Node* next;
+    
+    Node(string x, int d) {
+        city = x;
+        dist = d;
+        next = nullptr;
+    }
 };
 class Matrix
 {
@@ -123,43 +76,115 @@ void display(int size)
 	
 };
 
+class List {
+public:
+    Node* arr[100];
+    string cities[100];
+    
+    List(int v) {
+        for (int i = 0; i < v; i++) {
+            arr[i] = nullptr;
+        }
+    }
 
-
-int main()
-{
-
-	int v,e;
-	string a[10];
-	int choice;
-	cout<<"Enter No. of Cities : ";
-	cin>>v;
-	cout<<"Enter No. of Paths : ";
-	cin>>e;
-	cout<<"Enter Names of the cities";
-            for(int i=0;i<v;i++)
-            {
-            cin>>a[i];
+    
+    int findCityIndex(string city, int v) {
+        for (int i = 0; i < v; i++) {
+            if (cities[i] == city) {
+                return i;
             }
-	Matrix m(v,a);
-	List lt(v);
-	do{
-	cout<<"\n1.Adjacency Matrix 2.Adjacency List \nEnter Your Choice : ";
-	cin>>choice;
-	switch(choice)
-	{
-		case 1: m.accept(e,a,v);
+        }
+        return -1; // If city is not found
+    }
+
+    void Edge(int e, int v) {
+        string m, n;
+        int d;
+        for (int i = 0; i < e; i++) {
+            cout << i + 1 << "] Enter (Source , Destination) : ";
+            cin >> m >> n;
+            cout << "Distance Between (" << m << " , " << n << ") : ";
+            cin >> d;
+
+         
+            int srcIndex = findCityIndex(m, v);
+            int destIndex = findCityIndex(n, v);
+
+            if (srcIndex == -1 || destIndex == -1) {
+                cout << "Invalid city names. Please check your input." << endl;
+                continue;
+            }
+
+           
+            Node* temp = new Node(n, d);
+            temp->next = arr[srcIndex];
+            arr[srcIndex] = temp;
+
+            Node* temp1 = new Node(m, d);
+            temp1->next = arr[destIndex];
+            arr[destIndex] = temp1;
+        }
+    }
+
+    void Display(int v) {
+        for (int j = 0; j < v; j++) {
+            cout << "------------" << endl;
+            cout << "|" << cities[j] << "|";
+            Node* temp = arr[j];
+            while (temp != nullptr) {
+                cout << " -----> [ " << temp->city << "," << temp->dist << " ]";
+                temp = temp->next;
+            }
+            cout << "\n";
+        }
+        cout << "------------" << endl;
+    }
+
+    void setCities(int v) {
+        for (int i = 0; i < v; i++) {
+            cin >> cities[i];
+        }
+    }
+};
+
+int main() {
+    int v, e;
+    string a[10];
+    int choice;
+
+    cout << "Enter No. of Cities: ";
+    cin >> v;
+    cout << "Enter No. of Paths: ";
+    cin >> e;
+    cout << "Enter Names of the cities:\n";
+    for (int i = 0; i < v; i++) {
+        cin >> a[i];
+    }
+    Matrix m(v,a);
+    List lt(v);
+    for (int i = 0; i < v; i++) {
+        lt.cities[i] = a[i];
+    }
+
+    do {
+        cout << "\n1. Adjacency Matrix  2. Adjacency List \nEnter Your Choice: ";
+        cin >> choice;
+        switch (choice) {
+        case 1:
+           m.accept(e,a,v);
 			cout<<"\nAccpetion of Adjacecny Matrix is Done";
 			cout<<"\nDisplay of Adjacency Matrix : \n";
 			m.display(v);
 			break;
-			
-		case 2:
-		    lt.Edge(e);
-			lt.Display(v);
-			break;
-		
-		default:cout<<"Invalid Choice";
-	}
-	}while(choice!=3);
+            break;
+        case 2:
+            lt.Edge(e, v);
+            lt.Display(v);
+            break;
+        default:
+            cout << "Invalid Choice" << endl;
+        }
+    } while (choice != 3);
 
+    return 0;
 }
