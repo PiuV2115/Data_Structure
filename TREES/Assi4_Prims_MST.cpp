@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -12,7 +13,7 @@ class Matrix
     {
         v=x;
         e=y;
-        for(int i=0;i<v;i++)\
+        for(int i=0;i<v;i++)
         {
             for(int j=0;j<v;j++)
             {
@@ -47,7 +48,7 @@ class Matrix
             int min=9999,parent=-1,child=-1;
             for(i=0;i<v;i++)
             {
-                if(final1[i]!=1)
+                if(final1[i]==1)
                 {
                     for(j=0;j<v;j++)
                     {
@@ -86,7 +87,7 @@ class Matrix
 };
 int main()
 {
-    int v1,e1,u,v,w;
+    int v1,e1;
     cout<<"Enter No of Vertices : ";
     cin>>v1;
     cout<<"Enter no of Edges : ";
