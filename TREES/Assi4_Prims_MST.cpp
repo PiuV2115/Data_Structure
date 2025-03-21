@@ -1,51 +1,89 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-class Prims
+class Matrix
 {
-    int a[10];
-    Prims(int v)
+    int a[10][10],v,e;
+    vector<int> final1;
+    vector<int> start1;
+    vector<int> MST;
+    Matrix(int x,int y)
     {
-    for(int i=0;i<v;i++)
-    {
-        a[i]=0;
-    }
-    }
-}
-int main()
-{
-    int wt,node,parent,v;
-    int p,ch,x,flag=0;
-    cout<<"Enter No of Vertices : ";
-    cin>>v;
-    Prims obj(v);
-    for(int j=0;j<v;j++)
-    {
-        if(flag==0)
+        v=x;
+        e=y;
+        for(int i=0;i<v;i++)\
         {
-        cout<<"Enter The Source Edge's wt , node , parent :";
-        cin>>wt,node,parent;
-            enque(wt,node,parent);
-            a[node]=-1;
-            p=node;
+            for(int j=0;j<v;j++)
+            {
+                a[i][j]=0;
+            }
+            final1[i].push_back(-1);
+            start1[i].push_back(1);
         }
-        flag=1;
-        do{
-        cout<<"Enter Adjacent Edge for vertex "<<p<<"(wt,node,parent) :";
-        cin>>wt>>node>>parent;
-        enque(wt,node,parent);
-        cout<<"Add one More ? Press 1 :";
-        cin>>ch
-        }while(ch==1);
-        if(parent!=-1)
+    }
+    
+    void edge()
+    {
+        int u, v, w;
+        cout<<"Enter the Edges : ";
+        for(int i=0;i<e;i++)
         {
-        p=deque();
+            cout<<i+1<<"] Edge (Source,Destination,Weight) : ";
+            cin>>u>>v>>w;
+            a[u][v]=w;
+        }
+    }
+    
+    void prim()
+    {
+       for(int k=0;k<v-1;k++)
+        {
+                final1[s]=1;
+                start1[s]=-1;   
+            
+            int min=9999;parent=-1;child=-1;sum=0;
+            for(int i=0;i<v;i++)
+            {
+                if(final1[i]!=1)
+                {
+                    for(int j=0;j<v;j++)
+                    {
+                        if(a[i][j]!=0&&min>a[i][j]&&final[j]!=1)
+                        {
+                            min=a[i][j];
+                            parent=i;
+                            child=j;
+                        }//end of inner most if condition
+                    } //end of inner most for loop
+                } //end of outer if condition
+            }//end of ith loop
+                MST.push_back(parent);
+                MST.push_back(child);
+                MST.push_back(min);
+                sum+=min;
+                final1[child]=1;
+                start1[child]=-1;
+         }// End of outer most for loop 
+         cout<<"Weight of MST is : "<<sum;
+    }
+    
+    void display()
+    {
         for(int i=0;i<v;i++)
         {
-            if(a[i]==p)
-            {
-                a[i]=-1;
-            }
+            MST[i]
         }
-        }
-    }    
+    }
+};
+int main()
+{
+    int v1,e1,u,v,w;
+    cout<<"Enter No of Vertices : ";
+    cin>>v1;
+    cout<<"Enter no of Edges : ";
+    cin>>e1;
+    Matrix M(v1,e1);
+    M.egde();
+    M.display();
+    return 0;
 }
