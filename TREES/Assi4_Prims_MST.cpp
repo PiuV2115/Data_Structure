@@ -75,13 +75,20 @@ class Matrix
     
     void display()
     {
+        cout<<"    ";
+        for(int k=0;k<v;k++)
+        {
+            cout<<k<<" ";
+        }
+        cout<<"\n";
         for(int i=0;i<v;i++)
         {
+            cout<<i<<" [ ";
             for(int j=0;j<v;j++)
             {
                 cout<<a[i][j]<<" ";
             }
-            cout<<"\n";
+            cout<<" ]\n";
         }
     }
 };
