@@ -3,6 +3,7 @@
 using namespace std;
 class Matrix
 {
+    public:
     int a[10][10],v,e;
     vector<int> final1;
     vector<int> start1;
@@ -17,38 +18,40 @@ class Matrix
             {
                 a[i][j]=0;
             }
-            final1[i].push_back(-1);
-            start1[i].push_back(1);
+            final1.push_back(-1);
+            start1.push_back(1);
         }
     }
     
-    void edge()
+    void Edge()
     {
         int u, v, w;
-        cout<<"Enter the Edges : ";
+        cout<<"Enter the Edges : \n";
         for(int i=0;i<e;i++)
         {
             cout<<i+1<<"] Edge (Source,Destination,Weight) : ";
             cin>>u>>v>>w;
             a[u][v]=w;
+            a[v][u]=w;
         }
     }
     
     void prim()
     {
+        int sum=0;
        for(int k=0;k<v-1;k++)
         {
-                final1[s]=1;
-                start1[s]=-1;   
+                final1[0]=1;
+                start1[0]=-1;   
             
-            int min=9999;parent=-1;child=-1;sum=0;
+            int min=9999,parent=-1,child=-1;
             for(int i=0;i<v;i++)
             {
                 if(final1[i]!=1)
                 {
                     for(int j=0;j<v;j++)
                     {
-                        if(a[i][j]!=0&&min>a[i][j]&&final[j]!=1)
+                        if(a[i][j]!=0&&min>a[i][j]&&final1[j]!=1)
                         {
                             min=a[i][j];
                             parent=i;
@@ -71,7 +74,11 @@ class Matrix
     {
         for(int i=0;i<v;i++)
         {
-            MST[i]
+            for(int j=0;j<v;j++)
+            {
+                cout<<a[i][j]<<" ";
+            }
+            cout<<"\n";
         }
     }
 };
@@ -83,7 +90,8 @@ int main()
     cout<<"Enter no of Edges : ";
     cin>>e1;
     Matrix M(v1,e1);
-    M.egde();
+    M.Edge();
     M.display();
+    M.prim();
     return 0;
 }
