@@ -38,18 +38,18 @@ class Matrix
     
     void prim()
     {
-        int sum=0;
+        int sum=0,i,j;
        for(int k=0;k<v-1;k++)
         {
                 final1[0]=1;
                 start1[0]=-1;   
             
             int min=9999,parent=-1,child=-1;
-            for(int i=0;i<v;i++)
+            for(i=0;i<v;i++)
             {
                 if(final1[i]!=1)
                 {
-                    for(int j=0;j<v;j++)
+                    for(j=0;j<v;j++)
                     {
                         if(a[i][j]!=0&&min>a[i][j]&&final1[j]!=1)
                         {
@@ -64,6 +64,8 @@ class Matrix
                 MST.push_back(child);
                 MST.push_back(min);
                 sum+=min;
+                a[i][j]=0;
+                a[j][i]=0;
                 final1[child]=1;
                 start1[child]=-1;
          }// End of outer most for loop 
