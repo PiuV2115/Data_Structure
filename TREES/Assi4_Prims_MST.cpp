@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -70,7 +69,7 @@ class Matrix
                 final1[child]=1;
                 start1[child]=-1;
          }// End of outer most for loop 
-         cout<<"Weight of MST is : "<<sum;
+         cout<<"Weight of MST is : "<<sum<<"\n";
     }
     
     void display()
@@ -83,12 +82,12 @@ class Matrix
         cout<<"\n";
         for(int i=0;i<v;i++)
         {
-            cout<<i<<" [ ";
+            cout<<i<<" | ";
             for(int j=0;j<v;j++)
             {
                 cout<<a[i][j]<<" ";
             }
-            cout<<" ]\n";
+            cout<<" |\n";
         }
     }
 };
