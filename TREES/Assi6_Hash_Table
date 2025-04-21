@@ -1,0 +1,102 @@
+#include<iostream>
+using namespace std;
+class node
+{
+	public:
+	string al_name;
+	int track_no;
+	string track_name;
+};
+class hashtable
+{
+public:
+node a[10],temp;
+int track_no,value,v[10],colli;
+string track_name,album_name;
+	hashtable()
+	{
+		v[i]=-1;
+	}
+	void insert()
+	{
+		cout<<"Enter Track no. :";
+		cin>>temp.track_no;
+		cout<<"Enter Track name : ";
+		cin>>temp.track_name;
+		cout<<"Enter Album name : ";
+		cin>>temp.al_name;
+		value=hashfunction(track_no);
+		if(v[value]==-1)
+		{
+			a[value]=temp;
+			cout<<"Track no."<<temp.track_no<<" is inserted at "<<value<<" Location";
+		}
+		else
+		{
+			int flag=0;
+			colli=value;
+			while(flag!=1)
+			{
+				value+=1;
+				if(value>=10)
+				{
+					value=0;
+				}
+				if(v[value]==-1)
+				{
+					a[value]=temp;
+					cout<<"Track no. "<<temp.tack_no<<" has collision at "<<colli<<"\nNow Inserted at "<<value;
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0)
+			{
+				cout<<"No Empty Place Remain";
+			}
+		}
+		v[value]=0;	
+	}
+	int hashfunction(int key)
+	{
+		int value;
+		value=key%10;	
+		return value;
+	}
+	void display()
+	{
+		cout<<"Hash Table is \n";
+		cout<<"+------------------------------------------------------+\n|";
+		for(int i=0;i<9;i++)
+		{
+			cout<<"  "<<a[i].track_no<<"  |  "<<a[i].track_name<<"  |  "<<a[i].al_name<<"  ";
+			cout<<"|\n+------------------------------------------------------+";
+		}
+	
+	}
+};
+
+int main()
+{
+int ch,choice;
+hashtable obj;
+
+do
+{
+cout<<"1.Insert\n2.Display\nEnter Your Choice : ";
+cin>>choice;
+	switch(choice)
+	{
+		case 1:obj.insert();
+		break;
+		
+		case 2:obj.display();
+		break;
+		
+		default:cout<<"Invalid Choice !!";
+	}
+	cout<<"Do you want continue , Press 1 : ";
+	cin>>ch;
+}while(ch==1);
+return 0;
+}
