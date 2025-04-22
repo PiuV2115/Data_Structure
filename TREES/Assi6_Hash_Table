@@ -30,7 +30,7 @@ int value,v[10],colli;
 		cout<<"Enter Album name : ";
 		cin>>temp.al_name;
 		value=hashfunction(temp.track_no);
-		if(v[value]==-1)
+		if(v[value]==-1||v[value]==-2)
 		{
 			a[value]=temp;
 			cout<<"Track no."<<temp.track_no<<" is inserted at "<<value<<" Location";
@@ -69,13 +69,13 @@ int value,v[10],colli;
 	}
 	void display()
 	{
-		cout<<"\n***********HASH TABLE ****************\n";
-		cout<<"+------------------------------------+";
+		   cout<<"\n********HASH TABLE ********\n";
+		cout<<"+-------------------------+";
 		for(int i=0;i<10;i++)
 		{
 			cout<<"\n"<<i+1<<"]  |"<<a[i].track_no<<"  |  "<<a[i].track_name<<"  |  "<<a[i].al_name<<"  ";
-			cout<<"|\n+------------------------------------+";
-		}
+			cout<<"|\n+-------------------------+";
+			}
 	}
 	
 	int search(int key)
@@ -88,10 +88,10 @@ int value,v[10],colli;
 	     {
 	         flag=1;
 	         cout<<"\nMusic Record Found\n ";
-	         cout<<"\n***********HASH TABLE ****************\n";
-		cout<<"+------------------------------------+";
+	         cout<<"\n********HASH TABLE ********\n";
+		cout<<"+-------------------------+";
 	         	cout<<"\n"<<i+1<<"]  |"<<a[i].track_no<<"  |  "<<a[i].track_name<<"  |  "<<a[i].al_name<<"  ";
-			cout<<"|\n+------------------------------------+";
+			cout<<"|\n+-------------------------+";
 	     }
 	    }
 	    if(flag=0)
@@ -101,11 +101,57 @@ int value,v[10],colli;
 	
 	void update()
 	{
-	    int keytrack;
+	    int keytrack,flag=0;
 	    cout<<"Enter Track Id which you want update : ";
 	    cin>>keytrack;
-	    search(keytrack);
-	    
+	    for(int i=0;i<10;i++)
+	    {
+	    	if(keytrack==a[i].track_no)
+	    	{
+	    		cout<<"----------------------------------\n";
+	    		cout<<"Music Record Found !\n";
+	    		cout<<"Enter New Record : ";
+	    		cout<<"\nEnter Track name : ";
+			cin>>a[i].track_name;
+			cout<<"Enter Album name : ";
+			cin>>a[i].al_name;
+			cout<<"New Music Record Inserted !";
+			cout<<"\n--------------------------------\n";
+			flag=1;
+			break;
+	    	}
+	    }
+	    if(flag=0)
+	    {
+	    	cout<<"\nRecord Not Found !";
+	    } 
+	}
+	
+	void Delete()
+	{
+		int keytrack,flag=0;
+		cout<<"Enter Track_no is to be deleted : ";
+		cin>>keytrack;
+		 for(int i=0;i<10;i++)
+	    {
+	    	if(keytrack==a[i].track_no)
+	    	{
+	    		
+	    		a[i].track_no=0;
+	    		a[i].al_name="Deleted";
+	    		a[i].track_name="Deleted";
+	    		v[i]=-2;
+	    		cout<<"----------------------------------------------------------------\n";
+	    		cout<<"Music Record of Track no. "<<a[i].track_no<<" got deleted from "<<i<<" index";
+			cout<<"\n-----------------------------------------------------------------\n";
+			flag=1;
+			break;
+	    	}
+	    }
+	    if(flag=0)
+	    {
+	    	cout<<"\nRecord Not Found !";
+	    } 
 	}
 };
 
@@ -116,7 +162,7 @@ hashtable obj;
 
 do
 {
-cout<<"1.Insert\n2.Display\n3.Search\nEnter Your Choice : ";
+cout<<"1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\nEnter Your Choice : ";
 cin>>choice;
 	switch(choice)
 	{
@@ -130,6 +176,16 @@ cin>>choice;
 		cout<<"Enter Track_no that you want to search : ";
 		cin>>key;
 		obj.search(key);
+		break;
+		
+		case 4: 
+		obj.update();
+		break;
+		
+		case 5:
+		obj.Delete();
+		break;
+		
 		default:cout<<"Invalid Choice !!";
 	}
 	cout<<"\nDo you want continue , Press 1 : ";
