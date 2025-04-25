@@ -1,0 +1,203 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+
+class node
+{
+	public:
+	string al_name;
+	int track_no;
+	string track_name;
+};
+
+class hashtable
+{
+public:
+	node a[10], temp;
+	int value, v[10], colli;
+
+	hashtable()
+	{
+	    for(int i = 0; i < 10; i++)
+	    {
+			a[i].track_no = 0;
+			v[i] = -1;
+	    }
+	}
+
+	void insert()
+	{
+		cout << "Enter Track no. : ";
+		cin >> temp.track_no;
+		cout << "Enter Track name : ";
+		cin >> temp.track_name;
+		cout << "Enter Album name : ";
+		cin >> temp.al_name;
+		value = hashfunction(temp.track_no);
+		
+		if(v[value] == -1 || v[value] == -2)
+		{
+			a[value] = temp;
+			cout << "Track no. " << temp.track_no << " is inserted at " << value << " Location";
+		}
+		else
+		{
+			int flag = 0,i=0;
+			colli = value;
+			while(flag != 1)
+			{
+				value += i*i;
+				if(value >= 10)
+					value = 0;
+				
+				if(v[value] == -1)
+				{
+					a[value] = temp;
+					cout << "Track no. " << temp.track_no << " has collision at " << colli << "\nNow Inserted at " << value;
+					flag = 1;
+					break;
+				}
+				i++;
+			}
+			if(flag == 0)
+				cout << "No Empty Place Remain";
+		}
+		v[value] = 0;	
+	}
+
+	int hashfunction(int key)
+	{
+		return key % 10;
+	}
+
+	void display()
+	{
+		cout << "\n****************HASH TABLE ******************\n";
+		cout<<"\n+---------------------------------------------+";
+		cout<<"\n| Index | Track No. | Track Name | Album Name |";
+		cout<<"\n+---------------------------------------------+\n";
+		for(int i = 0; i < 10; i++)
+		{
+			cout<<"| "<<setw(5)<<i<<" | ";
+			cout<<setw(9)<<a[i].track_no<<" | ";
+			cout<<setw(10)<<a[i].track_name<<" | ";
+			cout<<setw(10)<<a[i].al_name<<" |\n";
+		}
+		cout<<"+---------------------------------------------+";
+	}
+
+	int search(int key)
+	{
+		int flag = 0;
+
+		for(int i = 0; i < 10; i++)
+		{
+			if(key == a[i].track_no)
+			{
+				flag = 1;
+				cout << "\nMusic Record Found\n ";
+				cout << "\n********HASH TABLE ********\n";
+				cout << "+-------------------------+";
+				cout << "\n" << i + 1 << "]  |" << a[i].track_no << "  |  " << a[i].track_name << "  |  " << a[i].al_name << "  ";
+				cout << "|\n+-------------------------+";
+				break;
+			}
+		}
+		if(flag == 0)
+			cout << "Music Record does not Found ! \n";
+		return 0;
+	}
+
+	void update()
+	{
+		int keytrack, flag = 0;
+		cout << "Enter Track Id which you want update : ";
+		cin >> keytrack;
+		for(int i = 0; i < 10; i++)
+		{
+			if(keytrack == a[i].track_no)
+			{
+				cout << "----------------------------------\n";
+				cout << "Music Record Found !\n";
+				cout << "Enter New Record : ";
+				cout << "\nEnter Track name : ";
+				cin >> a[i].track_name;
+				cout << "Enter Album name : ";
+				cin >> a[i].al_name;
+				cout << "New Music Record Inserted !";
+				cout << "\n--------------------------------\n";
+				flag = 1;
+				break;
+			}
+		}
+		if(flag == 0)
+			cout << "\nRecord Not Found !";
+	}
+
+	void Delete()
+	{
+		int keytrack, flag = 0;
+		cout << "Enter Track_no is to be deleted : ";
+		cin >> keytrack;
+		for(int i = 0; i < 10; i++)
+		{
+			if(keytrack == a[i].track_no)
+			{
+				a[i].track_no = 0;
+				a[i].al_name = "Deleted";
+				a[i].track_name = "Deleted";
+				v[i] = -2;
+				cout << "----------------------------------------------------------------\n";
+				cout << "Music Record of Track no. " << keytrack << " got deleted from " << i << " index";
+				cout << "\n-----------------------------------------------------------------\n";
+				flag = 1;
+				break;
+			}
+		}
+		if(flag == 0)
+			cout << "\nRecord Not Found !";
+	}
+};
+
+int main()
+{
+	int ch, choice, key;
+	hashtable obj;
+
+	do
+	{
+		cout << "1.Insert\n2.Display\n3.Search\n4.Update\n5.Delete\nEnter Your Choice : ";
+		cin >> choice;
+		switch(choice)
+		{
+			case 1:
+				obj.insert();
+				break;
+
+			case 2:
+				obj.display();
+				break;
+
+			case 3:
+				cout << "Enter Track_no that you want to search : ";
+				cin >> key;
+				obj.search(key);
+				break;
+
+			case 4:
+				obj.update();
+				break;
+
+			case 5:
+				obj.Delete();
+				break;
+
+			default:
+				cout << "Invalid Choice !!";
+		}
+		cout << "\nDo you want continue , Press 1 : ";
+		cin >> ch;
+	}while(ch == 1);
+
+	return 0;
+}
