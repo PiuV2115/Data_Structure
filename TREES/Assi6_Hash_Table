@@ -6,14 +6,9 @@ class node
 	string al_name;
 	int track_no;
 	string track_name;
-    node *next;
+    
 };
-class compare
-{
-    public:
-    int track_no;
-    int realvalue;
-};
+
 class hashtable
 {
 public:
@@ -25,7 +20,6 @@ int value,v[10],colli;
 	    for(int i=0;i<10;i++)
 	    {
 	   a[i].track_no=0;
-	   a[i].next=nullptr;
 		v[i]=-1;
 	    }
 	}
@@ -39,13 +33,10 @@ int value,v[10],colli;
 		cout<<"Enter Album name : ";
 		cin>>temp.al_name;
 		value=hashfunction(temp.track_no);
-		store[count].track_no=a[value].track_no;
-		store[count].realvalue=value;
-		count++;
 		if(v[value]==-1||v[value]==-2)
 		{
 			a[value]=temp;
-	
+	v[value]=0;
 			cout<<"Track no."<<temp.track_no<<" is inserted at "<<value<<" Location";
 		}
 		else
@@ -55,16 +46,6 @@ int value,v[10],colli;
 			
 			while(flag!=1)
 			{
-			    node sample;
-			    int result=comp(store , colli);
-			    if(result==-1)
-			    {
-			        sample=a[colli];
-			        a[colli]=temp;
-			        temp=a[colli];
-			        temp.next=nullptr;
-			        result=1;
-			    }
 				value+=1;
 				if(value>=10)
 				{
@@ -74,6 +55,7 @@ int value,v[10],colli;
 				{
 				    
 					a[value]=temp;
+                   v[value]=0;
 					a[colli].next=&a[value];
 					cout<<"Track no. "<<temp.track_no<<" has collision at "<<colli<<"\nNow Inserted at "<<value;
 					flag=1;
@@ -85,21 +67,7 @@ int value,v[10],colli;
 				cout<<"No Empty Place Remain";
 			}
 		}
-		v[value]=0;	
-	}
-	int comp(compare obj[10] , int currvalue)
-	{
-	   for(int i=0;i<10;i++)
-	   {
-	       if(a[currvalue].track_no==obj[i].track_no)
-	       {
-	           if(obj[i].realvalue<currvalue)
-	           {
-	               return -1;
-	           }
-	       }
-	   }
-	    return 0;
+		
 	}
   	int hashfunction(int key)
 	{
