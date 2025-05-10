@@ -1,7 +1,7 @@
 
 #include<iostream>
 using namespace std;
-int count=0,count1=0,a[10],r1,r2;
+int count=0,count1=0,a[10],r1,d,r2,c=0,a1,a2;
 class BT
 {
   public:
@@ -112,12 +112,33 @@ void PostOrder(BT *current)
 	cout<<current->data;
 }
 
-void height(BT *current)
+int height(BT *current)
 {
 	if(current==nullptr) 
-	{return ; }
+	{return 0; }
 	r1=height(current->left);
 	r2=height(current->right);
+	return 1;
+}
+
+ int ancestors(int d, BT *root)
+{
+    if(root==nullptr)
+    {
+        return 0;
+    }
+    if(root->data==d)
+    {
+        return 1;
+    }
+    a1=ancestors(d,root->left)||ancestors(d,root->right);
+    if(a1)
+    {
+        cout<<root->data<<" ";
+        return 1;
+    }
+    return 0;
+   
 }
 
 void Properties(BT *current)
@@ -129,18 +150,38 @@ for(int i=0;i<count1;i++)
 {
 cout<<a[i];
 }
-cout<<"\nAncestors of all nodes : "<<current->data<<"\n";
+cout<<"\nEnter Ancestor for which node data :" ;
+cin>>d;
+ancestors(d,root);
 if(r1>r2)
 cout<<"Height is : "<<r1;
 else
 cout<<"Height is : "<<r2;
 }
 
+int update(int data,BT* root)
+{
+    int t=0;
+    if(root==nullptr)
+    {
+        return 0;
+    }
+    if(root->data==data)
+    {
+       cout<<"Enter a new data";
+       cin>>root->data;
+    }
+    
+    return update(data,root->left)||update(data, root->right);
+}
+
+
 int main()
 {
 int choice;
+int data;
 do{
-cout<<"\n1.Create\n2.Insert\n3.PreOrder\n4.InOrder\n5.PostOrder\n6.Tree Properties\n7.Exit \nEnter Your Choice : ";
+cout<<"\n1.Create\n2.Insert\n3.PreOrder\n4.InOrder\n5.PostOrder\n6.Tree Properties\n7.Exit \n8.Update \nEnter Your Choice : ";
 cin>>choice;
 switch(choice)
 {
@@ -172,6 +213,12 @@ switch(choice)
 	break;
 
 	case 7: exit(0);
+	break;
+	
+	case 8:
+	 cout<<"Enter the data is to be deleted : ";
+    cin>>data;
+	update(data,root);
 	break;
 	
 	default : cout<<"Invalid Choice \n";
