@@ -200,24 +200,43 @@ void update()
 }*/
 void deleting(BST *root)
 {
-    BST *temp,*prev;
+    BST *temp,*prev=nullptr;
     temp=root;
     if(temp->left!=nullptr)
     {
-        
-        temp=temp->left;
+          prev=temp;
+          temp=temp->left;
+          if(temp->right==nullptr)
+        {
+            root->name=temp->name;
+            root->id=temp->id;
+            root->post=temp->post;
+            root->salary=temp->salary;
+            prev->left=temp->left;
+            delete temp;
+        }
+    }
+    if(temp->left==nullptr&&temp->right==nullptr)
+    {
+       delete temp;
     }
     while(temp->right!=nullptr)
     {
-        prev=temp;
-        temp=temp->right;
+       prev=temp;
+       temp=temp->right;
+       if(temp->left==nullptr&&temp->right==nullptr)
+       {
+            root->name=temp->name;
+            root->id=temp->id;
+            root->post=temp->post;
+            root->salary=temp->salary;
+            prev->right=nullptr;
+            delete temp;
+            break;
+       }
+           
     }
-    root->name=temp->name;
-    root->id=temp->id;
-    root->post=temp->post;
-    root->salary=temp->salary;
-    prev->right=nullptr;
-    delete temp;
+   
 }
 
 void Delete(BST *root)
@@ -233,11 +252,11 @@ void Delete(BST *root)
             flag=1;
             break;
         }
-        else if(root->salary>root->left->salary)
+        else if(tempsalary<root->salary)
         {
             if(root->left==nullptr)
             {
-                flag=2;
+              
                 break;
             }
             else
@@ -249,7 +268,7 @@ void Delete(BST *root)
         {
             if(root->right==nullptr)
             {
-                flag=2;
+              
                 break;
             }
             else
@@ -258,7 +277,7 @@ void Delete(BST *root)
             }
         }
     }
-    if(flag==0||flag==2)
+    if(flag==0)
     {
         cout<<"Employee Not Found !";
     }
