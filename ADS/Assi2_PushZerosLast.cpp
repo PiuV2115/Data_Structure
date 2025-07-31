@@ -1,3 +1,12 @@
+//Problem Statement
+//Write a C++ program to sort an array of integers in descending order using the Merge Sort algorithm.
+//The program should:
+//Accept the size of the array from the user.
+//Read the array elements.
+//Sort the array in descending order.
+//Display the sorted array.
+
+
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -68,3 +77,11 @@ int main()
     }
     return 0;
 }
+/*
+Input:
+Enter Size of an array : 5
+Enter a Array : 0 0 20 50 30
+
+output:
+50    40    30    0    0
+*/
