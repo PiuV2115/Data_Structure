@@ -1,7 +1,7 @@
-//Title : Implement a problem of smallest number with at least no trailing zeros in factorial .
-//Statement : Given a number n , the task is to find smallest number whose factorial contains at least n trailing zeros.
-//Input : 2
-//Output : 10 .
+/*Title : Implement a problem of smallest number with at least no trailing zeros in factorial .
+Statement : Given a number n , the task is to find smallest number whose factorial contains at least n trailing zeros.
+Input : 2
+Output : 10 */.
 
 #include <iostream>
 using namespace std;
@@ -45,3 +45,12 @@ int main() {
 
     return 0;
 }
+/* 
+Input
+n = 2
+
+output
+Enter the number of trailing zeros required: 2
+Smallest number whose factorial has at least 2 trailing zeros is: 10
+
+*/
